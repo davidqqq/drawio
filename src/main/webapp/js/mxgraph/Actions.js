@@ -26,6 +26,7 @@ Actions.prototype.init = function()
 
 	// File actions
 	this.addAction('new...', function() { graph.openLink(ui.getUrl()); });
+	this.addAction('odus upload...', function() { console.log("Action here") });
 	this.addAction('open...', function()
 	{
 		window.openNew = true;
