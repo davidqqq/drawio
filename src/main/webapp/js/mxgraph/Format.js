@@ -422,9 +422,11 @@ Format.prototype.refresh = function()
 		mxUtils.write(label, mxResources.get('text'));
 		div.appendChild(label);
 		this.panels.push(new TextFormatPanel(this, ui, div));
+		this.panels.push(new TmFormatPanel(this, ui, div)); // insert TM Format Panel
 	}
 	else
 	{
+		div.style.display='flex'
 		var containsLabel = this.getSelectionState().containsLabel;
 		var currentLabel = null;
 		var currentPanel = null;
@@ -492,10 +494,11 @@ Format.prototype.refresh = function()
 		label.style.width = (containsLabel) ? '50%' : '33.3%';
 		var label2 = label.cloneNode(false);
 		var label3 = label2.cloneNode(false);
-
+		const label4 = label3.cloneNode(false);
 		// Workaround for ignored background in IE
 		label2.style.backgroundColor = this.inactiveTabBackgroundColor;
 		label3.style.backgroundColor = this.inactiveTabBackgroundColor;
+		label4.style.backgroundColor = this.inactiveTabBackgroundColor;
 		
 		// Style
 		if (containsLabel)
@@ -536,6 +539,21 @@ Format.prototype.refresh = function()
 		
 		addClickHandler(label2, textPanel, idx++);
 		addClickHandler(label3, arrangePanel, idx++);
+		
+		
+		// Threat Modelling
+		mxUtils.write(label4, mxResources.get('tm'));
+		div.appendChild(label4);
+		console.log(mxResources)
+
+		var tmPanel = div.cloneNode(false);
+		tmPanel.style.display = 'none';
+
+		this.panels.push(new TmFormatPanel(this, ui, tmPanel));
+		this.container.appendChild(tmPanel);
+		
+		addClickHandler(label3, arrangePanel, idx++);
+		addClickHandler(label4, tmPanel, idx++);
 	}
 };
 
@@ -5918,4 +5936,75 @@ DiagramFormatPanel.prototype.destroy = function()
 		this.editorUi.removeListener(this.gridEnabledListener);
 		this.gridEnabledListener = null;
 	}
+};
+
+
+/**
+ * Adds the label menu items to the given menu and parent.
+ */
+TmFormatPanel = function(format, editorUi, container)
+{
+	BaseFormatPanel.call(this, format, editorUi, container);
+	this.init();
+};
+
+mxUtils.extend(TmFormatPanel, BaseFormatPanel);
+
+/**
+ * TM
+ * Adds the label menu items to the given menu and parent.
+ */
+TmFormatPanel.prototype.init = function()
+{
+	this.container.appendChild(this.addTable(this.createPanel()))
+};
+
+/**
+ * 
+ */
+TmFormatPanel.prototype.addTable = function(div)
+{
+	const ui = this.editorUi;
+	const editor = ui.editor;
+	const graph = editor.graph;
+	const ss = this.format.getSelectionState();
+	div.style.paddingTop = '6px';
+	div.style.paddingBottom = '10px';
+
+	const span = document.createElement('div');
+	span.style.marginTop = '2px';
+	span.style.marginBottom = '8px';
+	span.style.fontWeight = 'bold';
+	mxUtils.write(span, mxResources.get('tm'));
+	div.appendChild(span);
+	
+	const panel = document.createElement('div');
+	panel.style.position = 'relative';
+	panel.style.paddingLeft = '0px';
+	panel.style.borderWidth = '0px';
+	panel.className = 'geToolbarContainer';
+
+	const btns = [
+        ui.toolbar.addButton('geSprite-insertcolumnbefore', mxResources.get('tm'),
+ 		mxUtils.bind(this, function(){
+			 document.execCommand('insertText',false,'TM is good')
+		}), panel)];
+	this.styleButtons(btns);
+	div.appendChild(panel);
+	// <my-component first="Stencil" last="'Don't call me a framework' JS"></my-component>
+	const myWebComponent = document.createElement('my-component');
+	myWebComponent.setAttribute("first","Stencil")
+	myWebComponent.setAttribute("last","Web component")
+	
+	const myD3 = document.createElement('my-d3');
+	
+	myD3.addEventListener('exportImage',url=>{
+		// focus the cell editor
+		this.editorUi.editor.graph.cellEditor.textarea.focus();
+		// insert the image at the focused editor
+		this.editorUi.editor.graph.insertImage(url.detail,300,300)
+	})
+	div.appendChild(myWebComponent)
+	div.appendChild(myD3)
+	return div;
 };

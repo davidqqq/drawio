@@ -1023,3 +1023,9 @@ installFirst=Please install {1} first.
 drawioChromeExt=draw.io Chrome Extension
 loginFirstThen=Please login to {1} first, then {2}
 errFetchDocList=Error: Couldn't fetch documents list.
+tm=TM
+
+enrichCICD=Enrich CI/CD
+enrichForm=Enrich form
+enrichImport=Enrich import
+expandDraw=Expand draw 

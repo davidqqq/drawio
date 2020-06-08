@@ -1395,6 +1395,13 @@ Actions.prototype.init = function()
 	
 	action.setToggleAction(true);
 	action.setSelectedCallback(mxUtils.bind(this, function() { return this.outlineWindow != null && this.outlineWindow.window.isVisible(); }));
+
+	
+
+	this.addAction('enrichCICD', ()=>console.log('enrichCICD'), null, null, null);
+	this.addAction('enrichForm', ()=>console.log('enrichForm'), null, null, null);
+	this.addAction('enrichImport', ()=>console.log('enrichImport'), null, null, null);
+	this.addAction('expandDraw', ()=>console.log('expandDraw'), null, null, null);
 };
 
 /**

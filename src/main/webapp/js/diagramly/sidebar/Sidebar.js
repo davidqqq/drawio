@@ -74,6 +74,8 @@
 							  'Database', 'Desktop App Streaming', 'Developer Tools', 'Game Development', 'Internet of Things', 'IoT Things', 'IoT Resources', 'Machine Learning', 'Management Tools',
 							  'Media Services', 'Migration', 'Mobile Services', 'Network Content Delivery', 'Security Identity Compliance', 'Storage'];
 	
+	Sidebar.prototype.tm = ['Attack'];
+
 	Sidebar.prototype.aws4 = ['Arrows', 'General Resources', 'Illustrations', 'Groups', 'Analytics', 'Application Integration', 'AR VR', 'Cost Management', 'Blockchain', 
 							  'Business Applications', 'EC2 Instance Types', 'Compute', 'Customer Enablement', 'Customer Engagement',
 							  'Database', 'End User Computing', 'Developer Tools', 'Game Tech', 'Internet of Things', 'IoT Things', 'IoT Resources', 'Machine Learning', 'Management Governance',
@@ -135,6 +137,7 @@
            	                           {id: 'aws2', prefix: 'aws2', libs: Sidebar.prototype.aws2},
            	                           {id: 'aws3', prefix: 'aws3', libs: Sidebar.prototype.aws3},
            	                           {id: 'aws4b', prefix: 'aws4b', libs: Sidebar.prototype.aws4b},
+           	                           {id: 'tm', prefix: 'tm', libs: Sidebar.prototype.tm},
            	                           {id: 'aws4', prefix: 'aws4', libs: Sidebar.prototype.aws4},
            	                           {id: 'pid', prefix: 'pid', libs: Sidebar.prototype.pids},
            	                           {id: 'cisco', prefix: 'cisco', libs: Sidebar.prototype.cisco},
@@ -444,6 +447,7 @@
             			          {title: mxResources.get('gmdl'), id: 'gmdl', image: IMAGE_PATH + '/sidebar-gmdl.png'},
             			          {title: mxResources.get('procEng'), id: 'pid', image: IMAGE_PATH + '/sidebar-pid.png'},
             			          {title: 'Threat Modeling', id: 'threatModeling', image: IMAGE_PATH + '/sidebar-threatmodeling.png'},
+            			          {title: 'Threat Modeling new', id: 'tm', image: IMAGE_PATH + '/sidebar-threatmodeling.png'},
             			          {title: 'Web Icons', id: 'webicons', image: IMAGE_PATH + '/sidebar-webIcons.png'},
             			          {title: mxResources.get('signs'), id: 'signs', image: IMAGE_PATH + '/sidebar-signs.png'}]}];
 
@@ -789,6 +793,7 @@
 										content.style.display = 'block';
 										title.innerHTML = '';
 										mxUtils.write(title, this.editorUi.getResource(lib.title));
+										console.log('[addLibraryEntries1]',images)
 									}
 									else
 									{
@@ -808,6 +813,7 @@
 									{
 										this.addEntries(images);
 										this.editorUi.addLibraryEntries(images, content);
+										console.log('[addLibraryEntries2]',images)
 									});
 
 									content.style.display = 'none';
@@ -1035,6 +1041,7 @@
 		this.addAWS4bPalette();
 		this.addAWS4Palette();
 		this.addAWS3DPalette();
+		this.addTMPalette();
 		this.addAzurePalette();
 		this.addMSCAEPalette();
 		this.addC4Palette();
@@ -1321,7 +1328,7 @@
 		{
 			sidebarAddStencilPalette.apply(this, arguments);
 			scale = (scale != null) ? scale : 1;
-	
+	console.log("[loading stencileset]",stencilFile)
 			// Used for creating index
 			mxStencilRegistry.loadStencilSet(stencilFile, mxUtils.bind(this, function(packageName, stencilName, displayName, w, h)
 			{

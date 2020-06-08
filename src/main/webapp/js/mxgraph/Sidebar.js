@@ -2133,7 +2133,13 @@ Sidebar.prototype.createDropHandler = function(cells, allowSplit, allowCellsInse
 						}
 						else if (cells.length > 0)
 						{
+							// Set metadata (user object)
+							// var doc = mxUtils.createXmlDocument();
+							// var node = doc.createElement('MyNode')
+							// node.setAttribute('label', 'MyLabel');
+							// node.setAttribute('attribute1', 'value1');
 							select = graph.importCells(cells, x, y, target);
+							// graph.getModel().setValue(select[0], node);
 						}
 						
 						// Executes parent layout hooks for position/order
@@ -3345,6 +3351,10 @@ Sidebar.prototype.createVertexTemplate = function(style, width, height, value, t
 {
 	var cells = [new mxCell((value != null) ? value : '', new mxGeometry(0, 0, width, height), style)];
 	cells[0].vertex = true;
+	
+	cells[0].setAttribute('heheh','jahahahah')
+	
+	console.log(cells[0],cells[0].getValue())
 	
 	return this.createVertexTemplateFromCells(cells, width, height, title, showLabel, showTitle, allowCellsInserted);
 };

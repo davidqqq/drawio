@@ -100,8 +100,9 @@ EditorUi = function(editor, container, lightbox)
 			{
 				if (evt != null)
 				{
+					console.log("[evt]",evt)
 					var source = mxEvent.getSource(evt);
-					
+					console.log("[source]",source)
 					if (source.nodeName == 'A')
 					{
 						while (source != null)

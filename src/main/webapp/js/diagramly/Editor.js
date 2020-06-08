@@ -5341,6 +5341,7 @@
 	mxStencilRegistry.libraries['pid2misc'] = [SHAPES_PATH + '/pid2/mxPidMisc.js', STENCIL_PATH + '/pid/misc.xml'];
 	mxStencilRegistry.libraries['pid2valves'] = [SHAPES_PATH + '/pid2/mxPidValves.js'];
 	mxStencilRegistry.libraries['pidFlowSensors'] = [STENCIL_PATH + '/pid/flow_sensors.xml'];
+	mxStencilRegistry.libraries['tm'] = [SHAPES_PATH + '/mxTM.js',STENCIL_PATH + '/tm.xml'];
 
 	// Triggers dynamic loading for markers
 	mxMarker.getPackageForType = function(type)

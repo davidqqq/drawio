@@ -1058,6 +1058,7 @@ Menus.prototype.createPopupMenu = function(menu, cell, evt)
 	this.addPopupMenuArrangeItems(menu, cell, evt);
 	this.addPopupMenuCellItems(menu, cell, evt);
 	this.addPopupMenuSelectionItems(menu, cell, evt);
+	this.addPopupMenuEnrichmentItems(menu, cell, evt);
 };
 
 /**
@@ -1413,4 +1414,17 @@ Menu.prototype.execute = function(menu, parent)
 EditorUi.prototype.createMenus = function()
 {
 	return new Menus(this);
+};
+
+
+
+/**
+ * Creates additional pop menu items
+ */
+Menus.prototype.addPopupMenuEnrichmentItems = function(menu, cell, evt)
+{
+	if (!this.editorUi.editor.graph.isSelectionEmpty())
+	{
+		this.addMenuItems(menu, ['-', 'enrichCICD', 'enrichForm', 'enrichImport','expandDraw'], null, evt);
+	}
 };
